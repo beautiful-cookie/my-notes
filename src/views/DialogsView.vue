@@ -11,14 +11,16 @@
       </div>
 
       <div class="dialogs">
-        <router-link :to="`/messages/1`">
+        <router-link 
+              v-for="dialog of dialogs" 
+              :to="`/messages/1`">
           <div class="dialog">
             <div class="title">
-              <h3>Избранное</h3>
-              <time>10:00</time>
+              <h3>{{ dialog.title }}</h3>
+              <time>{{ dialog.dataTime }}</time>
             </div>
             <div class="last-message">
-              <p>Диалог с избранными сообщениями</p>
+              <p>{{ dialog.lastMessage }}</p>
             </div>
           </div>
         </router-link>
@@ -54,9 +56,10 @@
             <input
                 type="text"
                 placeholder="Название"
+                v-model="title"
             >
           </div>
-          <button>
+          <button @click="this.addDialog">
             Добавить новый дилог
           </button>
         </div>
@@ -71,7 +74,10 @@ export default {
   props: {},
 
   data() {
-    return {};
+    return {
+      dialogs: [], 
+      title: ''
+    };
   },
 
   computed: {},
@@ -84,7 +90,16 @@ export default {
   mounted() {
   },
 
-  methods: {},
+  methods: {
+    addDialog() {
+      this.dialogs.push({
+        title: this.title, 
+        dataTime: Date.now(), 
+        lastMessage: 'Нет сообщений'
+      })
+
+    }
+  },
 }
 </script>
 
