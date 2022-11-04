@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkextra_notes"]=self["webpackChunkextra_notes"]||[]).push([[727],{8727:function(e,t,n){n.r(t),n.d(t,{default:function(){return i}});var u=function(){var e=this,t=e._self._c;return t("div",[e._v("404")])},r=[],s=(n(7658),{created(){this.$router.push("/dialogs")}}),l=s,a=n(1001),c=(0,a.Z)(l,u,r,!1,null,null,null),i=c.exports}}]);
+//# sourceMappingURL=727.69e2311c.js.map
