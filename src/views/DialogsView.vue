@@ -13,11 +13,11 @@
 
       <div class="dialogs">
         <router-link 
-              v-for="dialog of dialogs" 
+              v-for="dialog in sortedDialogs" 
               :to="`/messages/${dialog.id}`">
           <div class="dialog">
             <div class="title">
-              <h3>{{ dialog.title }}</h3>
+              <h3>{{ dialog.title }}</h3> 
               <time>{{ dialog.dataTime }}</time>
             </div>
             <div class="last-message">
@@ -52,13 +52,19 @@ export default {
 
   data() {
     return {
-      dialogs: [], 
+      dialogs: this.getDialog(), 
       title: '', 
       inp: '' 
     };
   },
 
-  computed: {},
+  computed: {
+    sortedDialogs() { 
+      return this.dialogs.filter(el => {
+        return el.title.includes(this.inp)  
+      }) 
+    } 
+  },
 
   watch: {},
 
@@ -71,14 +77,23 @@ export default {
   methods: {
     addDialog() {
       let date = new Date; 
-      this.dialogs.push({
+      this.dialogs.splice(0, 0, {
         title: this.title, 
         dataTime: `${date.getHours()}:${date.getMinutes()}`,
         lastMessage: 'Нет сообщений', 
         id: Date.now()
-      })
+      }) 
+      this.title = '' 
+      this.saveDialog() 
+    }, 
+    saveDialog() {
+      localStorage.setItem('dialog', JSON.stringify(this.dialogs))
+    }, 
+    getDialog() { 
+      let dialog = JSON.parse(localStorage.getItem('dialog')) 
+      return dialog != undefined ? dialog : [] 
     }
-  },
+  }, 
 }
 </script>
 
