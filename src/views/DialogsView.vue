@@ -16,15 +16,18 @@
               v-for="dialog in sortedDialogs" 
               :key="dialog.id"
               :to="`/messages/${dialog.id}`">
+
           <div class="dialog">
             <div class="title">
               <h3>{{ dialog.title }}</h3> 
               <time>{{ dialog.dataTime }}</time>
             </div>
             <div class="last-message">
-              <p>{{ dialog.lastMessage }}</p>
+              <p>{{ dialog.lastMessage }}</p> 
+              <button class="btn" @click="() => deleteDialog(dialog.id)">/</button>
             </div>
-          </div>
+          </div> 
+
         </router-link>
       </div>
 
@@ -38,7 +41,7 @@
             >
           </div>
           <button @click="this.addDialog">
-            Добавить новый дилог
+            Добавить новую заметку 
           </button>
         </div>
       </div>
@@ -93,6 +96,11 @@ export default {
     getDialog() { 
       let dialog = JSON.parse(localStorage.getItem('dialog')) 
       return dialog != undefined ? dialog : [] 
+    }, 
+    deleteDialog(id) {
+      this.dialogs = this.dialogs.splice(id, 1)
+      console.log(this.dialogs) 
+      this.saveDialog() 
     }
   }, 
 }
@@ -128,13 +136,33 @@ export default {
   }
 
   .last-message {
-    margin-top: 5px;
+    margin-top: 5px; 
+    display: flex;
+    justify-content: space-between;
 
     p {
       color: #717579;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+    } 
+
+    .btn {
+      height: 20px; 
+      width: 25px; 
+      background-color: #464646; 
+      color: black; 
+      border: none; 
+      font-weight: 500; 
+      border-radius: 5px; 
+      transition-property: background-color, text-shadow; 
+      transition-duration: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #202020; 
+      color: white; 
+      text-shadow: 0 0 2px white;
     }
   }
 
