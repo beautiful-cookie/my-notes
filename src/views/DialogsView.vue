@@ -5,7 +5,8 @@
         <div class="search">
           <input
               type="text"
-              placeholder="Поиск"
+              placeholder="Поиск" 
+              v-model="inp"
           >
         </div>
       </div>
@@ -13,7 +14,7 @@
       <div class="dialogs">
         <router-link 
               v-for="dialog of dialogs" 
-              :to="`/messages/1`">
+              :to="`/messages/${dialog.id}`">
           <div class="dialog">
             <div class="title">
               <h3>{{ dialog.title }}</h3>
@@ -21,30 +22,6 @@
             </div>
             <div class="last-message">
               <p>{{ dialog.lastMessage }}</p>
-            </div>
-          </div>
-        </router-link>
-
-        <router-link :to="`/messages/2`">
-          <div class="dialog">
-            <div class="title">
-              <h3>Список покупок</h3>
-              <time>10:00</time>
-            </div>
-            <div class="last-message">
-              <p>1кг яблок</p>
-            </div>
-          </div>
-        </router-link>
-
-        <router-link :to="`/messages/3`">
-          <div class="dialog">
-            <div class="title">
-              <h3>Домашние задания</h3>
-              <time>10:00</time>
-            </div>
-            <div class="last-message">
-              <p>Математика: 157, 158, 159</p>
             </div>
           </div>
         </router-link>
@@ -76,7 +53,8 @@ export default {
   data() {
     return {
       dialogs: [], 
-      title: ''
+      title: '', 
+      inp: '' 
     };
   },
 
@@ -92,12 +70,13 @@ export default {
 
   methods: {
     addDialog() {
+      let date = new Date; 
       this.dialogs.push({
         title: this.title, 
-        dataTime: Date.now(), 
-        lastMessage: 'Нет сообщений'
+        dataTime: `${date.getHours()}:${date.getMinutes()}`,
+        lastMessage: 'Нет сообщений', 
+        id: Date.now()
       })
-
     }
   },
 }
