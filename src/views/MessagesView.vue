@@ -46,7 +46,9 @@ export default {
   props: {},
 
   data() {
-    return {};
+    return {
+      messages: [] 
+    };
   },
 
   computed: {},
