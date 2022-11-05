@@ -14,6 +14,7 @@
       <div class="dialogs">
         <router-link 
               v-for="dialog in sortedDialogs" 
+              :key="dialog.id"
               :to="`/messages/${dialog.id}`">
           <div class="dialog">
             <div class="title">
